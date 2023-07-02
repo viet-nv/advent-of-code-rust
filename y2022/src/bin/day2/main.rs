@@ -1,19 +1,8 @@
 use std::{fs, path::Path};
 
-fn main() {
-    let mut content = fs::read_to_string(Path::new("./y2022/src/bin/day2/input.txt"))
-        .expect("Should have been able to read the file");
-    content.pop(); // pop the last \n
-                   //
-    let rounds: Vec<Vec<&str>> = content
-        .split("\n")
-        .map(|s| s.split(" ").collect::<Vec<&str>>())
-        .collect();
-
+fn part1(rounds: &Vec<Vec<&str>>) -> u32 {
     let mut score = 0;
-
-    // Part 1
-    for round in &rounds {
+    for round in rounds {
         let shape_score = match round[1] {
             "X" => 1,
             "Y" => 2,
@@ -27,11 +16,13 @@ fn main() {
         };
         score += part1_game_score;
     }
-    println!("Answer Part 1: {score}");
+    score
+}
 
-    // Part 2
+
+fn part2(rounds: &Vec<Vec<&str>>) -> u32 {
     let mut score = 0;
-    for round in &rounds {
+    for round in rounds {
         match round[1] {
             "X" => match round[0] {
                 "A" => score += 3,
@@ -55,5 +46,22 @@ fn main() {
         }
     }
 
-    println!("Answer Part 2: {score}");
+   score
+}
+
+fn main() {
+    let mut content = fs::read_to_string(Path::new("./y2022/src/bin/day2/input.txt"))
+        .expect("Should have been able to read the file");
+    content.pop(); // pop the last \n
+                   //
+    let rounds: Vec<Vec<&str>> = content
+        .split("\n")
+        .map(|s| s.split(" ").collect::<Vec<&str>>())
+        .collect();
+
+    // Part 1
+    println!("Answer Part 1: {}", part1(&rounds));
+
+    // Part 2
+    println!("Answer Part 2: {}", part2(&rounds));
 }
