@@ -80,20 +80,45 @@ fn read_input() -> Input {
     Input { stacks, cmds }
 }
 
-fn main() {
-    let Input { mut stacks, cmds } = read_input();
+fn part1(Input { stacks, cmds }: &Input) {
+    let mut mut_stacks = stacks.clone();
 
     for cmd in cmds {
         for _ in 0..cmd.qty {
-            let c = stacks[cmd.from].pop();
-            stacks[cmd.to].push(c.unwrap());
+            let c = mut_stacks[cmd.from].pop();
+            mut_stacks[cmd.to].push(c.unwrap());
         }
     }
 
     let mut r = "".to_string();
-    for s in stacks {
+    for s in mut_stacks {
         r.push(*s.last().unwrap());
     }
-
     println!("Result: {r}");
+}
+
+fn part2(Input { stacks, cmds }: &Input) {
+    let mut mut_stacks = stacks.clone();
+
+    for cmd in cmds {
+        let mut v = vec![];
+        for _ in 0..cmd.qty {
+            v.push(mut_stacks[cmd.from].pop().unwrap());
+        }
+        v.reverse();
+        mut_stacks[cmd.to].append(&mut v);
+    }
+
+    let mut r = "".to_string();
+    for s in mut_stacks {
+        r.push(*s.last().unwrap());
+    }
+    println!("Result: {r}");
+}
+
+fn main() {
+    let input = read_input();
+
+    part1(&input);
+    part2(&input);
 }
