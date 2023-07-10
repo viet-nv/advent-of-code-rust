@@ -1,4 +1,4 @@
-use std::{fs, path::Path};
+use std::fs;
 
 #[derive(Debug)]
 struct Cmd {
@@ -13,7 +13,7 @@ struct Input {
     cmds: Vec<Cmd>,
 }
 fn read_input() -> Input {
-    let mut content = fs::read_to_string(Path::new("./y2022/src/bin/day5/input.txt"))
+    let mut content = fs::read_to_string("./y2022/src/bin/day5/input.txt")
         .expect("Should have been able to read the file");
     content.pop();
 

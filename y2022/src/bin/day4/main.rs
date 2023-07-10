@@ -1,7 +1,7 @@
-use std::{cmp::max, cmp::min,fs, path::Path};
+use std::{cmp::max, cmp::min,fs};
 
 fn main() {
-    let mut content = fs::read_to_string(Path::new("./y2022/src/bin/day4/input.txt"))
+    let mut content = fs::read_to_string("./y2022/src/bin/day4/input.txt")
         .expect("Should have been able to read the file");
     content.pop();
 

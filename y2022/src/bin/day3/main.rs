@@ -1,4 +1,4 @@
-use std::{fs, path::Path};
+use std::fs;
 
 fn get_idx(c: &char) -> usize {
     if c.is_lowercase() {
@@ -37,7 +37,7 @@ fn get_common(arr: Vec<Vec<char>>) -> u32 {
 }
 
 fn main() {
-    let mut content = fs::read_to_string(Path::new("./y2022/src/bin/day3/input.txt"))
+    let mut content = fs::read_to_string("./y2022/src/bin/day3/input.txt")
         .expect("Should have been able to read the file");
     content.pop();
     let rucksacks: Vec<&str> = content.split("\n").collect();

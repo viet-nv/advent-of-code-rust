@@ -1,4 +1,4 @@
-use std::{fs, path::Path};
+use std::fs;
 
 fn part1(rounds: &Vec<Vec<&str>>) -> u32 {
     let mut score = 0;
@@ -18,7 +18,6 @@ fn part1(rounds: &Vec<Vec<&str>>) -> u32 {
     }
     score
 }
-
 
 fn part2(rounds: &Vec<Vec<&str>>) -> u32 {
     let mut score = 0;
@@ -46,11 +45,11 @@ fn part2(rounds: &Vec<Vec<&str>>) -> u32 {
         }
     }
 
-   score
+    score
 }
 
 fn main() {
-    let mut content = fs::read_to_string(Path::new("./y2022/src/bin/day2/input.txt"))
+    let mut content = fs::read_to_string("./y2022/src/bin/day2/input.txt")
         .expect("Should have been able to read the file");
     content.pop(); // pop the last \n
                    //
