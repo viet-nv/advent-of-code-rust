@@ -1,6 +1,6 @@
 use std::fs;
 
-struct Config {
+struct ColorLimit {
     red: i32,
     blue: i32,
     green: i32,
@@ -72,7 +72,7 @@ fn read_input() -> Vec<Game> {
 }
 
 fn main() {
-    let config = Config {
+    let color_limit = ColorLimit {
         red: 12,
         green: 13,
         blue: 14,
@@ -80,39 +80,27 @@ fn main() {
 
     let games = read_input();
 
-    let mut part1 = 0;
-    for game in &games {
-        let mut eligible = true;
-        for cube in &game.cubes {
-            if cube.red > config.red || cube.blue > config.blue || cube.green > config.green {
-                eligible = false;
-                break;
-            }
-        }
-        if eligible {
-            part1 += game.id;
-        }
-    }
+    let part1: i32 = games
+        .iter()
+        .filter(|game| {
+            game.cubes.iter().all(|cube| {
+                cube.red <= color_limit.red
+                    && cube.blue <= color_limit.blue
+                    && cube.green <= color_limit.green
+            })
+        })
+        .map(|game| game.id)
+        .sum();
     println!("Part One: {}", part1);
 
-    let mut part2 = 0;
-    for game in &games {
-        let mut max_red = 0;
-        let mut max_green = 0;
-        let mut max_blue = 0;
-        for cube in &game.cubes {
-            if cube.red > max_red {
-                max_red = cube.red;
-            }
-            if cube.green > max_green {
-                max_green = cube.green;
-            }
-            if cube.blue > max_blue {
-                max_blue = cube.blue;
-            }
-        }
-        part2 += max_red * max_green * max_blue;
-    }
-
+    let part2: i32 = games
+        .iter()
+        .map(|game| {
+            let max_red = game.cubes.iter().map(|cube| cube.red).max().unwrap_or(0);
+            let max_green = game.cubes.iter().map(|cube| cube.green).max().unwrap_or(0);
+            let max_blue = game.cubes.iter().map(|cube| cube.blue).max().unwrap_or(0);
+            max_red * max_green * max_blue
+        })
+        .sum();
     println!("Part Two: {}", part2);
 }
